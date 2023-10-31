@@ -24,7 +24,7 @@ public class CursedEnergy {
             }
             
             // Display in action bar
-            String s = Utils.col(String.format("&5☠ &d%d &5/ &d%d &5☠", getCursedEnergy(player), MAX_CURSED_ENERGY));
+            String s = Utils.col(String.format("&5ᴇɴᴇʀɢʏ: &d%d &5/ &d%d &5", getCursedEnergy(player), MAX_CURSED_ENERGY));
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(s));
         }
     }
