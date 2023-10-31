@@ -1,0 +1,9 @@
+name: KaisenSMP
+version: '${project.version}'
+main: me.kyren223_itzzdev.kaisensmp.KaisenSMP
+api-version: '1.20'
+
+commands:
+  energy:
+    description: Sends the player's energy level
+    usage: /<command> [player] [amount]
