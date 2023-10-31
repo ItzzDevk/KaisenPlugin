@@ -24,7 +24,7 @@ public class CursedEnergy {
             }
             
             // Display in action bar
-            String s = Utils.col(String.format("&5☠ &d%d &5/ &d%d &5☠", getCursedEnergy(player), MAX_CURSED_ENERGY));
+            String s = Utils.col(String.format("&5&lᴇɴᴇʀɢʏ: &d%d &5/ &d%d &5", getCursedEnergy(player), MAX_CURSED_ENERGY));
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(s));
         }
     }
@@ -32,7 +32,7 @@ public class CursedEnergy {
     public static boolean use(Player player, int amount) {
         int cursedEnergy = getCursedEnergy(player);
         if (cursedEnergy < amount) {
-            player.sendMessage(Utils.col("&cYou do not have enough cursed energy!"));
+            player.sendMessage(Utils.col("&cYou do not have enough Cursed Energy!"));
             return false;
         }
         cursedEnergies.put(player.getUniqueId().toString(), cursedEnergy - amount);
