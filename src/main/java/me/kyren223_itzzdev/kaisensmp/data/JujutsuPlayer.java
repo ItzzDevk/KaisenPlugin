@@ -15,10 +15,12 @@ public class JujutsuPlayer {
 
     private final Player player;
     private TechniqueType technique;
+    private DomainType domainType;
     
     
     public JujutsuPlayer(Player player) {
         this.player = player;
+        this.domainType = DomainType.random();
         ItemStack item = player.getInventory().getItemInOffHand();
         this.technique = loadTechnique(item);
         sync();
@@ -36,7 +38,27 @@ public class JujutsuPlayer {
         String technique = pdc.get(CursedOrbItem.TECHNIQUE_KEY, PersistentDataType.STRING);
         return TechniqueType.valueOf(technique);
     }
-    
+
+    private void loadFromItem(ItemStack item) {
+        if (!CursedOrbItem.isItem(item)) return;
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+        String type = pdc.getOrDefault(CursedOrbItem.DOMAIN_KEY, PersistentDataType.STRING, "NONE");
+        try {
+            this.domainType = DomainType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            this.domainType = DomainType.random();
+        }
+    }
+
+    public DomainType getDomainType() {
+        return domainType;
+    }
+
+    public void setDomainType(DomainType domainType) {
+        this.domainType = domainType;
+        sync();
+    }
+
     public Player getPlayer() {
         return this.player;
     }
@@ -55,7 +77,7 @@ public class JujutsuPlayer {
     }
     
     public void sync() {
-        CursedOrbItem.giveItem(player, technique);
+        CursedOrbItem.giveItem(player, technique, domainType);
     }
     
     // Static

@@ -1,6 +1,7 @@
 package me.kyren223_itzzdev.kaisensmp.items;
 
 import me.kyren223_itzzdev.kaisensmp.KaisenSMP;
+import me.kyren223_itzzdev.kaisensmp.data.DomainType;
 import me.kyren223_itzzdev.kaisensmp.utils.Utils;
 import me.kyren223_itzzdev.kaisensmp.data.TechniqueType;
 import org.bukkit.Material;
@@ -20,9 +21,11 @@ public class CursedOrbItem {
     
     public static final NamespacedKey TECHNIQUE_KEY =
             new NamespacedKey(KaisenSMP.plugin, "technique");
+    public static final NamespacedKey DOMAIN_KEY =
+            new NamespacedKey(KaisenSMP.plugin, "domain");
     
 
-    public static void giveItem(Player player, TechniqueType technique) {
+    public static void giveItem(Player player, TechniqueType technique, DomainType domain) {
         ItemStack item = new ItemStack(Material.POPPED_CHORUS_FRUIT);
         ItemMeta meta = item.getItemMeta();
         assert meta != null; // Avoids null checks
@@ -30,13 +33,15 @@ public class CursedOrbItem {
         // Visual
         meta.setDisplayName(DISPLAY_NAME);
         List<String> lore = new ArrayList<>();
+        lore.add(Utils.col("&7Domain Type: " + domain.getDisplayName()));
         lore.add(Utils.col("&7Cursed Technique: &8" + technique.getDisplayName()));
         meta.setLore(lore);
-        meta.setCustomModelData(223);
+        meta.setCustomModelData(123);
         
         // Data
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(TECHNIQUE_KEY, PersistentDataType.STRING, technique.name());
+        pdc.set(DOMAIN_KEY, PersistentDataType.STRING, domain.name());
         
         item.setItemMeta(meta);
         player.getInventory().setItemInOffHand(item);
@@ -46,6 +51,6 @@ public class CursedOrbItem {
         if (item == null) return false;
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return false;
-        return meta.getCustomModelData() == 223;
+        return meta.getCustomModelData() == 123;
     }
 }

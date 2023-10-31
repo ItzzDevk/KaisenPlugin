@@ -1,6 +1,9 @@
 package me.kyren223_itzzdev.kaisensmp.utils;
 
 import me.kyren223_itzzdev.kaisensmp.KaisenSMP;
+import me.kyren223_itzzdev.kaisensmp.data.DomainType;
+import me.kyren223_itzzdev.kaisensmp.data.JujutsuPlayer;
+import me.kyren223_itzzdev.kaisensmp.items.CursedOrbItem;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -24,7 +27,7 @@ public class CursedEnergy {
             }
             
             // Display in action bar
-            String s = Utils.col(String.format("&5ᴇɴᴇʀɢʏ: &d%d &5/ &d%d &5", getCursedEnergy(player), MAX_CURSED_ENERGY));
+            String s = Utils.col(String.format("&5ᴇɴᴇʀɢʏ: &d%d&5/&d%d &5 &0| ᴅᴏᴍᴀɪɴ: ", getCursedEnergy(player), MAX_CURSED_ENERGY)); // add domains
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(s));
         }
     }
