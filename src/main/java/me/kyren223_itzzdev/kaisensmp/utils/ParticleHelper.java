@@ -56,4 +56,58 @@ public class ParticleHelper {
             }
         }).runTaskTimer(KaisenSMP.plugin, 0L, 5L);
     }
+
+    public static void SphereParticles(Player player) {
+        Location playerLocation = player.getLocation();
+        new BukkitRunnable() {
+            int ticks = 0;
+
+            @Override
+            public void run() {
+                if (ticks >= 2) {
+                    cancel();
+                    return;
+                }
+                for (double theta = 0; theta <= 2 * Math.PI; theta += 0.1) {
+                    for (double phi = 0; phi <= Math.PI; phi += 0.1) {
+                        double x = 1 * Math.sin(phi) * Math.cos(theta);
+                        double y = 1 * Math.sin(phi) * Math.sin(theta);
+                        double z = 1 * Math.cos(phi);
+                        playerLocation.getWorld().spawnParticle(Particle.REDSTONE, playerLocation.getX() + x, playerLocation.getY() + y, playerLocation.getZ() + z, 0, 0, 0, 0);
+                    }
+                }
+                ticks++;
+            }
+        }.runTaskTimer(this, 0, 1);
+    }
+
+    
+
+    public static void SphereGlass(Player player) {
+        Location playerLocation = player.getLocation();
+        new BukkitRunnable() {
+            int ticks = 0;
+
+            @Override
+            public void run() {
+				if (ticks >= 40) {
+                    cancel();
+                    return;
+                }
+			
+				int radius = 3;
+				for (double x = -radius; x <= radius; x++) {
+					for (double y = -radius; y <= radius; y++) {
+						for (double z = -radius; z <= radius; z++) {
+							if (x * x + y * y + z * z <= radius * radius) {
+								playerLocation.clone().add(x, y, z).getBlock().setType(Material.GLASS);
+							}
+						}
+					}
+				}
+			
+				ticks++;
+            }
+        }.runTaskTimer(this, 0, 1);
+    }
 }
